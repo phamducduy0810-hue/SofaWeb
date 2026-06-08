@@ -1,0 +1,6 @@
+@SofaECommerce.API_HostAddress = http://localhost:5255
+
+GET {{SofaECommerce.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

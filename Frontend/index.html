@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SOFA LUXE | Ghế Sofa Cao Cấp & Sang Trọng</title>
+    <meta name="description" content="Khám phá bộ sưu tập ghế Sofa cao cấp nhập khẩu da bò và nỉ chất lượng từ Sofa Luxe. Thiết kế sang trọng, hiện đại cho phòng khách nhà bạn.">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header>
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="url(#goldGradient)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-top: -4px;">
+                    <defs>
+                        <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#fbbf24" />
+                            <stop offset="100%" stop-color="#d97706" />
+                        </linearGradient>
+                    </defs>
+                    <path d="M4 18v3h16v-3M2 10h20M4 10V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4M4 14h16M2 14v4h20v-4" />
+                </svg>
+                SOFA<span>LUXE</span>
+            </a>
+            
+            <ul class="nav-links">
+                <li><a href="index.html" class="active">Cửa Hàng</a></li>
+                <li><a href="#" onclick="showCategory(1); return false;">Sofa Da</a></li>
+                <li><a href="#" onclick="showCategory(2); return false;">Sofa Nỉ</a></li>
+                <li id="admin-nav-link" style="display: none;"><a href="admin.html" style="color: var(--primary);">Quản Trị Admin</a></li>
+            </ul>
+
+            <div class="nav-actions">
+                <button class="nav-btn" id="cart-toggle-btn" onclick="toggleCart(true)">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="9" cy="21" r="1"></circle>
+                        <circle cx="20" cy="21" r="1"></circle>
+                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                    </svg>
+                    <span class="cart-count" id="cart-badge-count">0</span>
+                </button>
+
+                <div id="auth-nav-section">
+                    <!-- Dynamic auth state will render here -->
+                    <button class="btn btn-secondary" onclick="openAuthModal('login')" style="padding: 0.5rem 1.25rem; font-size: 0.9rem;">Đăng Nhập</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero fade-in">
+        <h1>Định Nghĩa Không Gian <span>Sang Trọng</span></h1>
+        <p>Sưu tập các mẫu sofa cao cấp được chế tác tinh xảo từ chất liệu da bò nguyên tấm và nỉ tơ tằm êm ái hàng đầu thế giới.</p>
+        <div style="display: flex; justify-content: center; gap: 1rem;">
+            <button class="btn btn-primary" onclick="scrollToShop()">Khám Phá Ngay</button>
+            <button class="btn btn-secondary" onclick="showCategory(1)">Sofa Da Thật</button>
+        </div>
+    </section>
+
+    <!-- Main Shop Area -->
+    <main class="shop-container" id="shop-section">
+        <!-- Sidebar Filters -->
+        <aside class="filters-sidebar fade-in">
+            <div class="filter-section">
+                <h3 class="filter-title">Tìm Kiếm</h3>
+                <div class="search-wrapper">
+                    <input type="text" class="search-input" id="search-input" placeholder="Tìm kiếm sofa...">
+                    <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                </div>
+            </div>
+
+            <div class="filter-section">
+                <h3 class="filter-title">Danh Mục</h3>
+                <div id="category-filters-container">
+                    <button class="category-btn active" onclick="filterByCategory(null, this)">Tất cả</button>
+                    <button class="category-btn" onclick="filterByCategory(1, this)">Sofa Da</button>
+                    <button class="category-btn" onclick="filterByCategory(2, this)">Sofa Nỉ</button>
+                </div>
+            </div>
+
+            <div class="filter-section">
+                <h3 class="filter-title">Khoảng Giá</h3>
+                <div class="price-inputs">
+                    <input type="number" class="price-input-field" id="min-price-input" placeholder="Tối thiểu" min="0">
+                    <input type="number" class="price-input-field" id="max-price-input" placeholder="Tối đa" min="0">
+                </div>
+                <button class="btn btn-secondary" onclick="applyPriceFilter()" style="width: 100%; margin-top: 1rem; padding: 0.5rem;">Áp dụng</button>
+            </div>
+        </aside>
+
+        <!-- Products List Area -->
+        <section class="products-wrapper">
+            <div class="products-grid" id="products-grid">
+                <!-- Products will be loaded dynamically via Ajax Fetch -->
+                <div style="grid-column: 1/-1; text-align: center; padding: 4rem; color: var(--text-muted);">
+                    Đang tải danh sách sofa...
+                </div>
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination" id="pagination-controls">
+                <!-- Pagination buttons will render here -->
+            </div>
+        </section>
+    </main>
+
+    <!-- Smart Recommendation Section -->
+    <section class="recommendations-section fade-in">
+        <div class="section-header">
+            <h2 class="section-title">Gợi Ý Riêng Cho Bạn</h2>
+            <p style="color: var(--text-muted); font-size: 0.95rem;">Dựa trên lịch sử xem hàng của bạn</p>
+        </div>
+        <div class="products-grid" id="recommendations-grid">
+            <!-- Recommended products will render here -->
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer style="background-color: var(--bg-surface); padding: 3rem 2rem; border-top: 1px solid var(--border); margin-top: 5rem;">
+        <div style="max-width: 1280px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 2rem;">
+            <div>
+                <a href="#" class="logo" style="margin-bottom: 0.5rem;">SOFA<span>LUXE</span></a>
+                <p style="color: var(--text-muted); font-size: 0.9rem; max-width: 300px;">Kiến tạo trải nghiệm sống đẳng cấp với các mẫu sofa cao cấp hàng đầu thị trường.</p>
+            </div>
+            <p style="color: var(--text-muted); font-size: 0.85rem;">&copy; 2026 SOFA LUXE. Đã đăng ký bản quyền thương hiệu.</p>
+        </div>
+    </footer>
+
+    <!-- PRODUCT DETAIL MODAL -->
+    <div class="modal-overlay" id="product-detail-modal">
+        <div class="modal-content">
+            <button class="modal-close-btn" onclick="closeProductModal()">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+            <div class="product-details-grid">
+                <div>
+                    <img src="" id="modal-product-img" class="details-image" alt="Product Image">
+                </div>
+                <div style="display: flex; flex-direction: column;">
+                    <span id="modal-product-category" style="font-size: 0.8rem; text-transform: uppercase; color: var(--primary); font-weight: 700; letter-spacing: 0.05em;">DANH MỤC</span>
+                    <h2 id="modal-product-title" style="font-size: 2rem; margin: 0.25rem 0 0.5rem; font-family: var(--font-display);">Sofa Name</h2>
+                    
+                    <div class="product-rating" id="modal-product-rating">
+                        <!-- Stars will be inserted dynamically -->
+                    </div>
+
+                    <p id="modal-product-desc" style="color: var(--text-muted); margin-bottom: 1.5rem; font-size: 0.95rem;">Sofa Description goes here.</p>
+
+                    <!-- Product Variants Selection -->
+                    <div class="variant-selector-wrapper">
+                        <span class="variant-label">Màu sắc:</span>
+                        <div class="variant-pills" id="color-variant-pills">
+                            <!-- Color pills e.g. Xám, Nâu, Xanh -->
+                        </div>
+                    </div>
+
+                    <div class="variant-selector-wrapper">
+                        <span class="variant-label">Chất liệu:</span>
+                        <div class="variant-pills" id="material-variant-pills">
+                            <!-- Material pills e.g. Da bò, Nỉ -->
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 1.5rem; display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <span style="font-size: 0.85rem; color: var(--text-muted); display: block;">Giá bán biến thể</span>
+                            <span id="modal-product-price" style="font-size: 2rem; font-weight: 800; color: var(--primary); font-family: var(--font-display);">0đ</span>
+                        </div>
+                        <div style="text-align: right;">
+                            <span style="font-size: 0.85rem; color: var(--text-muted); display: block;">Tình trạng kho</span>
+                            <span id="modal-product-stock" style="font-weight: 600; color: var(--success);">10 sản phẩm</span>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-primary" id="add-to-cart-btn" onclick="addToCartFromModal()" style="width: 100%; margin-top: 2rem; padding: 1rem;">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="9" cy="21" r="1"></circle>
+                            <circle cx="20" cy="21" r="1"></circle>
+                            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                        </svg>
+                        Thêm Vào Giỏ Hàng
+                    </button>
+                </div>
+            </div>
+
+            <!-- Reviews and Ratings Section -->
+            <div class="reviews-section">
+                <h3 style="font-size: 1.5rem; margin-bottom: 1.5rem;">Đánh Giá Từ Khách Hàng</h3>
+                <div id="reviews-list-container">
+                    <!-- Reviews list goes here -->
+                </div>
+
+                <!-- Submit Review Form (visible only to logged-in users) -->
+                <div id="review-submission-form-container" style="display: none;">
+                    <div class="review-form">
+                        <h4 style="margin-bottom: 0.75rem;">Viết đánh giá của bạn</h4>
+                        <div class="rating-select" id="rating-star-selector">
+                            <button class="rating-star-btn" data-value="1" onclick="setReviewRating(1)">★</button>
+                            <button class="rating-star-btn" data-value="2" onclick="setReviewRating(2)">★</button>
+                            <button class="rating-star-btn" data-value="3" onclick="setReviewRating(3)">★</button>
+                            <button class="rating-star-btn" data-value="4" onclick="setReviewRating(4)">★</button>
+                            <button class="rating-star-btn" data-value="5" onclick="setReviewRating(5)">★</button>
+                        </div>
+                        <textarea class="review-textarea" id="review-comment-input" placeholder="Chia sẻ trải nghiệm thực tế của bạn về chất liệu, độ êm ái và tính thẩm mỹ của sản phẩm..."></textarea>
+                        <button class="btn btn-primary" onclick="submitReview()">Gửi Đánh Giá</button>
+                    </div>
+                </div>
+                <div id="review-login-prompt" style="margin-top: 1.5rem; padding: 1rem; background-color: var(--bg-base); border-radius: 8px; text-align: center; color: var(--text-muted);">
+                    Vui lòng <span style="color: var(--primary); cursor: pointer; font-weight: 600;" onclick="openAuthModal('login')">Đăng nhập</span> và mua sản phẩm này để gửi đánh giá.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SHOPPING CART DRAWER -->
+    <div class="cart-drawer" id="cart-drawer">
+        <div class="cart-header">
+            <h3 style="font-size: 1.25rem;">Giỏ Hàng</h3>
+            <button class="nav-btn" onclick="toggleCart(false)">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+        <div class="cart-items" id="cart-items-list">
+            <!-- Cart items render here -->
+        </div>
+        <div class="cart-footer">
+            <!-- Auto-Apply Coupon Banner -->
+            <div id="auto-coupon-banner" style="display: none;">
+                <!-- Dynamically calculated best coupon goes here -->
+            </div>
+            
+            <div class="cart-summary-row">
+                <span>Tạm tính:</span>
+                <span id="cart-subtotal-val">0đ</span>
+            </div>
+            <div class="cart-summary-row" id="cart-discount-row" style="display: none; color: var(--success);">
+                <span>Giảm giá (Tự động áp dụng):</span>
+                <span id="cart-discount-val">-0đ</span>
+            </div>
+            <div class="cart-summary-row cart-summary-total">
+                <span>Tổng cộng:</span>
+                <span id="cart-total-val" style="color: var(--primary);">0đ</span>
+            </div>
+            <button class="btn btn-primary" id="checkout-btn" onclick="processCheckout()" style="width: 100%; margin-top: 1.5rem; padding: 1rem;">
+                Tiến Hành Đặt Hàng (Giao Dịch Lập Tức)
+            </button>
+        </div>
+    </div>
+
+    <!-- REGISTER/LOGIN MODAL -->
+    <div class="modal-overlay" id="auth-modal">
+        <div class="modal-content" style="max-width: 400px; padding: 2rem;">
+            <button class="modal-close-btn" onclick="closeAuthModal()">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+            
+            <!-- Login Form -->
+            <div id="login-form-wrapper">
+                <h3 style="font-size: 1.75rem; text-align: center; margin-bottom: 1.5rem;">Đăng Nhập</h3>
+                <div class="auth-form-group">
+                    <label for="login-username">Tài khoản</label>
+                    <input type="text" class="auth-input" id="login-username" placeholder="Nhập tài khoản (vd: customer1)">
+                </div>
+                <div class="auth-form-group">
+                    <label for="login-password">Mật khẩu</label>
+                    <input type="password" class="auth-input" id="login-password" placeholder="Nhập mật khẩu (vd: UserPassword1)">
+                </div>
+                <button class="btn btn-primary" onclick="handleLogin()" style="width: 100%; padding: 0.75rem;">Đăng Nhập</button>
+                <div class="auth-switch">
+                    Chưa có tài khoản? <span onclick="switchAuthMode('register')">Đăng ký ngay</span>
+                </div>
+            </div>
+
+            <!-- Register Form -->
+            <div id="register-form-wrapper" style="display: none;">
+                <h3 style="font-size: 1.75rem; text-align: center; margin-bottom: 1.5rem;">Đăng Ký</h3>
+                <div class="auth-form-group">
+                    <label for="register-username">Tên tài khoản</label>
+                    <input type="text" class="auth-input" id="register-username" placeholder="Tên tài khoản mong muốn">
+                </div>
+                <div class="auth-form-group">
+                    <label for="register-email">Địa chỉ Email</label>
+                    <input type="email" class="auth-input" id="register-email" placeholder="Địa chỉ email liên hệ">
+                </div>
+                <div class="auth-form-group">
+                    <label for="register-password">Mật khẩu</label>
+                    <input type="password" class="auth-input" id="register-password" placeholder="Mật khẩu bảo mật">
+                </div>
+                <button class="btn btn-primary" onclick="handleRegister()" style="width: 100%; padding: 0.75rem;">Đăng Ký Tài Khoản</button>
+                <div class="auth-switch">
+                    Đã có tài khoản? <span onclick="switchAuthMode('login')">Đăng nhập</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOAST NOTIFICATION CONTAINER -->
+    <div class="toast" id="toast-notification">
+        <div id="toast-message">Thông báo ở đây</div>
+    </div>
+
+    <!-- Frontend logic script -->
+    <script src="script.js"></script>
+</body>
+</html>
