@@ -1,3 +1,0 @@
-﻿<Project>
-  <Import Project="../build/SofaECommerce.API.props" />
-</Project>
